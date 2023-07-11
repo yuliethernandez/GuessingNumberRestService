@@ -24,7 +24,7 @@ public class RoundDaoImpl implements RoundDao{
     public Round addRound(String guess, Game game) {
         
         final String INSERT_ROUND = 
-                "INSERT INTO round(guess, result, gameId) "
+                "INSERT INTO round(guess, result, GameId) "
                 + "VALUES(?,?,?)";
         jdbc.update(INSERT_ROUND, guess, game.getAnswer(), game.getGameId());
         
@@ -35,7 +35,7 @@ public class RoundDaoImpl implements RoundDao{
     @Override
     public Round getRoundById(int roundId) {
         try {
-            final String SELECT_ROUND_BY_ID = "SELECT * FROM student WHERE id = ?";
+            final String SELECT_ROUND_BY_ID = "SELECT * FROM round WHERE RoundId = ?";
             return jdbc.queryForObject(SELECT_ROUND_BY_ID, new RoundMapper(), roundId);
         } 
         catch (DataAccessException ex) {

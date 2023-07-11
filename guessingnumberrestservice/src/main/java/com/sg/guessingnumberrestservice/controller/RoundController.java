@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class RoundController {
+    
     @Autowired
     RoundService roundService;
     
@@ -25,7 +26,6 @@ public class RoundController {
 
     @GetMapping("/rounds/{id}")
     public List<Round> getRoundsByGameId(@PathVariable int id) {
-
         return roundService.getRoundsByGameId(id);
     }
     

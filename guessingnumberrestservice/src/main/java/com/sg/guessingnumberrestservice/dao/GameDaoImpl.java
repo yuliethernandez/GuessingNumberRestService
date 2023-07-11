@@ -31,7 +31,7 @@ public class GameDaoImpl implements GameDao{
     }  
         
     @Override
-    @Transactional
+    //@Transactional
     public Game addGame(Game game) {
         final String INSERT_GAME = "INSERT INTO game(GameId, answer, statusGame) "
                 + "VALUES(?,?,?)";

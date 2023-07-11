@@ -27,11 +27,13 @@ public class RoundServiceImpl implements RoundService{
         
         if (guess.equals(answer)) {
             Game game = gameDao.getGameById(round.getGameId());
-            game.setStatusGame(true);
+            game.setStatusGame(false);
             gameDao.updateGame(game);
         }
-        
-        return roundDao.addRound(guess, gameDao.getGameById(round.getGameId()));
+        Game game = gameDao.getGameById(round.getGameId());
+        Round roundAdded;
+        roundAdded = roundDao.addRound(guess, game);
+        return roundAdded;
     }
 
     private String checkResult(String guess, String answer) {
