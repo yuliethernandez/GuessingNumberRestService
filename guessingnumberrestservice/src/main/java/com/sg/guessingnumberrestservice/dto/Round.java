@@ -3,9 +3,8 @@ package com.sg.guessingnumberrestservice.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import org.springframework.stereotype.Repository;
 
-@Repository
+//@Entity
 public class Round {
     private int roundId;
     private short guess;
