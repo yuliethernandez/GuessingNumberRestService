@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoundController {
     
     @Autowired
-    RoundService roundService;
+    private RoundService roundService;
     
     @PostMapping("/guess")
     public Round makeGuess(@RequestBody Round round) {

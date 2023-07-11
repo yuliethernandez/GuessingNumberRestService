@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class GameDaoImpl implements GameDao{
@@ -80,8 +79,7 @@ public class GameDaoImpl implements GameDao{
     
     @Override
     public List<Game> getAllGames() {
-        String sql = "SELECT *\n" +
-                "FROM game;";
+        String sql = "SELECT * FROM game;";
         return jdbc.query(sql, new GameMapper());
     }
 

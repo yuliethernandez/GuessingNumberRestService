@@ -11,7 +11,7 @@ public interface RoundDao {
     
     //Yuliet --> "guess" – POST – Makes a guess by passing the guess and gameId in as JSON. 
     //The program must calculate the results of the guess and mark the game finished if the guess is correct. It returns the Round object with the results filled in.
-    Round addRound(String guess, Game game);
+    Round addRound(Round round);
     
     Round getRoundById(int roundId);
     

@@ -1,7 +1,6 @@
 
 package com.sg.guessingnumberrestservice.dao;
 
-import com.sg.guessingnumberrestservice.dto.Game;
 import com.sg.guessingnumberrestservice.dto.Round;
 import com.sg.guessingnumberrestservice.mappers.RoundMapper;
 import java.util.List;
@@ -14,28 +13,32 @@ import org.springframework.stereotype.Repository;
 public class RoundDaoImpl implements RoundDao{
     
     @Autowired
-    JdbcTemplate jdbc;
+    private JdbcTemplate jdbc;
     
     //Yuliet --> "guess" – POST – Makes a guess by passing the guess and gameId in as JSON. 
     //The program must calculate the results of the guess and mark the game finished if the guess is correct. 
     //It returns the Round object with the results filled in.
 
     @Override
-    public Round addRound(String guess, Game game) {
+    public Round addRound(Round round) {
         
         final String INSERT_ROUND = 
                 "INSERT INTO round(guess, result, GameId) "
                 + "VALUES(?,?,?)";
-        jdbc.update(INSERT_ROUND, guess, game.getAnswer(), game.getGameId());
+        jdbc.update(INSERT_ROUND, round.getGuess(), round.getResult(), round.getGameId());
         
-        int newRoundId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        return getRoundById(newRoundId);
+        int newRoundId = jdbc.queryForObject("SELECT LAST_INSERT_ID();", Integer.class);
+        Round roundGet =getRoundById(newRoundId);
+        if(roundGet==null){
+            System.out.println("the round in dao is null");
+        }
+        return roundGet;
     }
     
     @Override
     public Round getRoundById(int roundId) {
         try {
-            final String SELECT_ROUND_BY_ID = "SELECT * FROM round WHERE RoundId = ?";
+            final String SELECT_ROUND_BY_ID = "SELECT * FROM round WHERE RoundId = ?;";
             return jdbc.queryForObject(SELECT_ROUND_BY_ID, new RoundMapper(), roundId);
         } 
         catch (DataAccessException ex) {

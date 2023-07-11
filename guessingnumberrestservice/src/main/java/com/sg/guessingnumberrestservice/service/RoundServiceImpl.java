@@ -13,51 +13,52 @@ import org.springframework.stereotype.Service;
 public class RoundServiceImpl implements RoundService{
     
     @Autowired
-    RoundDao roundDao;
+    private RoundDao roundDao;
     
     @Autowired
-    GameDao gameDao;
+    private GameDao gameDao;
 
     @Override
     public Round Guess(Round round) {
-        String answer = gameDao.getGameById(round.getGameId()).getAnswer();
+        Game game = gameDao.getGameById(round.getGameId());
+        String answer = game.getAnswer();
         String guess = round.getGuess();
         String result = checkResult(guess, answer);
         round.setResult(result);
         
         if (guess.equals(answer)) {
-            Game game = gameDao.getGameById(round.getGameId());
+            game.setStatusGame(true);
+            gameDao.updateGame(game);
+        }else{
             game.setStatusGame(false);
             gameDao.updateGame(game);
         }
-        Game game = gameDao.getGameById(round.getGameId());
-        Round roundAdded;
-        roundAdded = roundDao.addRound(guess, game);
+        Round roundAdded = roundDao.addRound(round);
         return roundAdded;
     }
 
     private String checkResult(String guess, String answer) {
-        
-        char[] guessArray = guess.toCharArray();
-        char[] answerArray = answer.toCharArray();
-        
         int exact = 0;
         int partial = 0;
         
-        for (int i = 0; i < guessArray.length; i++) {
-            for (int j = 0; j < answerArray.length; j++) {
-                if (guessArray[i] == answerArray[i]) {
-                    if(i == j){
-                        exact++;
-                    } else {
-                        partial++;
-                    }                
+        if(guess.equals(answer)){
+            exact = 4;
+            partial = 0;
+        }else{
+            for (int i = 0; i < answer.length(); i++) {
+                for (int j = 0; j < guess.length(); j++) {
+                    if (guess.charAt(i) == answer.charAt(j)) {
+                        if(i == j){
+                            exact++;
+                        } 
+                        else {
+                            partial++;
+                        }                
+                    }
                 }
             }
-        }
-        
+        }        
         String result = "e:" + exact + ":p:" + partial;
-        
         return result;
     }
 
