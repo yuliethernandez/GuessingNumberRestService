@@ -5,6 +5,7 @@ import com.sg.guessingnumberrestservice.dto.Game;
 import com.sg.guessingnumberrestservice.service.GameService;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,4 +43,8 @@ public class GameController {
         return ResponseEntity.ok(game);
     }
     
+    @GetMapping("/game")
+    List<Game> getAllGames() {
+        return gameService.getAllGames();
+    }
 }

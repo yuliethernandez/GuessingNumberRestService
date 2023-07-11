@@ -44,7 +44,6 @@ public class GameDaoImpl implements GameDao{
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         game.setGameId(newId);
         return game;
-    
     }
  
     private String generateAnswer() {
@@ -81,16 +80,9 @@ public class GameDaoImpl implements GameDao{
     
     @Override
     public List<Game> getAllGames() {
-        String sql = "SELECT * FROM game;";
-
-        List<Game> allGames = jdbc.query(sql, new GameMapper());
-        //Hide Answer for "In-Progress" games
-        for (Game game : allGames) {
-            if(game.getStatusGame().equals(true)) {
-                game.setAnswer(" ");
-            }
-        }
-        return allGames;
+        String sql = "SELECT *\n" +
+                "FROM game;";
+        return jdbc.query(sql, new GameMapper());
     }
 
     @Override
