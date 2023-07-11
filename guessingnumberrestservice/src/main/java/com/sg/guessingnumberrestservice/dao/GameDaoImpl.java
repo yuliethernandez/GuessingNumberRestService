@@ -36,19 +36,12 @@ public class GameDaoImpl implements GameDao{
     }
     //Gabby --> "game" – GET – Returns a list of all games. 
     //Be sure in-progress games do not display their answer.
-    
+
     @Override
     public List<Game> getAllGames() {
-        String sql = "SELECT * FROM game;";
-
-        List<Game> allGames = jdbc.query(sql, new GameMapper());
-        //Hide Answer for "In-Progress" games
-        for (Game game : allGames) {
-            if(game.getStatusGame().equals(true)) {
-                game.setAnswer(" ");
-            }
-        }
-        return allGames;
+        String sql = "SELECT *\n" +
+                "FROM game;";
+        return jdbc.query(sql, new GameMapper());
     }
 
 }

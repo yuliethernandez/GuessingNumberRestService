@@ -1,10 +1,29 @@
 
 package com.sg.guessingnumberrestservice.service;
 
+import com.sg.guessingnumberrestservice.dao.GameDao;
+import com.sg.guessingnumberrestservice.dto.Game;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 public class GameServiceImpl implements GameService{
+    @Autowired
+    GameDao gameDao;
+
+    public List<Game> getAllGames() {
+        List<Game> allGames = gameDao.getAllGames();
+        //Hide Answer for "In-Progress" games
+        for (Game game : allGames) {
+            if (game.getStatusGame().equals(true)) {
+                game.setAnswer("****");
+            } else {
+            }
+        }
+        return allGames;
+    }
     
     @Override
     public int generateAnswer() {
