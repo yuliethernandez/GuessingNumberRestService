@@ -10,7 +10,7 @@ public class RoundMappers implements RowMapper<Round>{
 
     @Override
     public Round mapRow(ResultSet rs, int rowNum) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
 }

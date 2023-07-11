@@ -2,9 +2,7 @@
 package com.sg.guessingnumberrestservice.dto;
 
 import java.util.Objects;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public class Game {
     private int gameId;
     private String answer;

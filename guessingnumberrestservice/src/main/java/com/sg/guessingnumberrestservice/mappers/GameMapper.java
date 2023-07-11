@@ -6,11 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
-public class GameMappers implements RowMapper<Game>{
+public class GameMapper implements RowMapper<Game>{
 
     @Override
     public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        Game game = new Game();
+        game.setGameId(rs.getInt("gameId"));
+        game.setAnswer(rs.getString("answer"));
+        game.setStatusGame(rs.getBoolean("statusGame"));
+        
+        return game;
     }
     
 }
