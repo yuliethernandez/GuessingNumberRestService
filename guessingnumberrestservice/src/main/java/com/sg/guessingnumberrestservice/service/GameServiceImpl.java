@@ -1,13 +1,20 @@
 
 package com.sg.guessingnumberrestservice.service;
 
+import com.sg.guessingnumberrestservice.dao.GameDao;
+import com.sg.guessingnumberrestservice.dto.Game;
 import java.util.HashSet;
 import java.util.Random;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameServiceImpl implements GameService{
+    @Autowired
+    GameDao gameDao;
     
     @Override
-    public int generateAnswer() {
+    public String generateAnswer() {
 
         HashSet<Integer> answer = new HashSet<>();
         Random numberGen = new Random();
@@ -20,8 +27,33 @@ public class GameServiceImpl implements GameService{
             numberGuess += i;
         }
 
-        System.out.println(numberGuess);
-        int num = Integer.parseInt(numberGuess);
-        return num;
+        return numberGuess;
     }
+
+    @Override
+    public Game addGame(Game game) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Game getGameById(int GameId) {
+        Game game = gameDao.getGameById(GameId);
+        if (!game.getStatusGame()) {
+            game.setAnswer("****");
+        }
+
+        return game;
+    }
+
+    @Override
+    public Game startNewGame() {
+        Game game = new Game();
+        String answer = generateAnswer();
+        game.setAnswer(answer);
+        game.setStatusGame(false);
+
+        gameDao.addGame(game);
+        return game;
+    }
+    
 }

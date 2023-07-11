@@ -61,4 +61,11 @@ public class Game {
     public void setStatusGame(Boolean statusGame) {
         this.statusGame = statusGame;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" + "gameId=" + gameId + ", answer=" + answer + ", statusGame=" + statusGame + '}';
+    }
+    
+    
 }
