@@ -1,9 +1,12 @@
 
 package com.sg.guessingnumberrestservice.service;
 
+import org.springframework.stereotype.Service;
+
 import java.util.HashSet;
 import java.util.Random;
 
+@Service
 public class GameServiceImpl implements GameService{
     
     @Override

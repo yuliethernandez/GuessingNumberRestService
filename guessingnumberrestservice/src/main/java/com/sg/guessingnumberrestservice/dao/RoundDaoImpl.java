@@ -39,10 +39,11 @@ public class RoundDaoImpl implements RoundDao{
 
     @Override
     public List<Round> getRoundsByGameId(int id) {
+        // STUB DATA, DELETE LATER
         insertStubData();
 
         String FIND_ROUNDS_BY_GAME_ID =
-                "SELECT * FROM round WHERE gameId=?";
+                "SELECT * FROM round WHERE gameId=? ORDER BY guessTime";
         return jdbcTemplate.query(FIND_ROUNDS_BY_GAME_ID, new RoundMappers(), id);
     }
 
