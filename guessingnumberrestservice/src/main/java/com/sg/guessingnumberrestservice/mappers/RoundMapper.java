@@ -7,14 +7,10 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import org.springframework.jdbc.core.RowMapper;
 
-public class RoundMappers implements RowMapper<Round>{
-
-
-
+public class RoundMapper implements RowMapper<Round>{
 
     @Override
     public Round mapRow(ResultSet rs, int rowNum) throws SQLException {
-
         Round round = new Round();
 
         round.setRoundId(rs.getInt("RoundId"));
@@ -25,7 +21,5 @@ public class RoundMappers implements RowMapper<Round>{
 
         return round;
     }
-}
     
-
-
+}
