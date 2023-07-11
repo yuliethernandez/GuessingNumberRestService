@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 import com.sg.guessingnumberrestservice.dto.Game;
 import com.sg.guessingnumberrestservice.dto.Round;
 import com.sg.guessingnumberrestservice.mappers.RoundMapper;

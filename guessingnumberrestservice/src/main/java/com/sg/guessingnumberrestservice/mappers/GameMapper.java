@@ -16,13 +16,5 @@ public class GameMapper implements RowMapper<Game>{
         game.setStatusGame(rs.getBoolean("statusGame"));
 
         return game;
-    public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Game game = new Game();
-        game.setGameId(rs.getInt("gameId"));
-        game.setAnswer(rs.getString("answer"));
-        game.setStatusGame(rs.getBoolean("statusGame"));
-
-        return game;
     }
-    
 }
