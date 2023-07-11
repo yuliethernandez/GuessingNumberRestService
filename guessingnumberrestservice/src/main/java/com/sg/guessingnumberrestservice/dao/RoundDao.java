@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RoundDao {
 
-    List<Round> findRoundsByGameId(int id);
+    List<Round> getRoundsByGameId(int id);
 }

@@ -20,14 +20,14 @@ public class RoundDaoImpl implements RoundDao{
         jdbcTemplate.update("DELETE FROM round");
 
         jdbcTemplate.update("INSERT INTO round (guess, guessTime, result, GameId)\n" +
-                "VALUES (1, \"2023-07-09 10:00:00\", \"e:1:p:1\", 1),\n" +
-                "        (2, \"2023-06-05 11:25:00\", \"e:2:p:1\", 1),\n" +
-                "        (3, \"2023-03-01 09:45:00\", \"e:1:p:3\", 1);");
+                "VALUES (1234, \"2023-07-09 10:00:00\", \"e:1:p:1\", 1),\n" +
+                "       (2345, \"2023-06-05 11:25:00\", \"e:2:p:1\", 1),\n" +
+                "       (3456, \"2023-03-01 09:45:00\", \"e:1:p:3\", 1);");
 
     }
 
     @Override
-    public List<Round> findRoundsByGameId(int id) {
+    public List<Round> getRoundsByGameId(int id) {
         insertStubData();
 
         String FIND_ROUNDS_BY_GAME_ID =

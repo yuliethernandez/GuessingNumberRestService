@@ -15,6 +15,6 @@ public class RoundServiceImpl implements RoundService{
     RoundDao roundDao;
 
     public List<Round> getRoundsByGameId(int id) {
-        return roundDao.findRoundsByGameId(id);
+        return roundDao.getRoundsByGameId(id);
     }
 }
