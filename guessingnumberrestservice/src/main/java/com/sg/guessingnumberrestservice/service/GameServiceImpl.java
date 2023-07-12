@@ -34,11 +34,7 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public Game startNewGame() {
-        Game game = new Game();
-        String answer = generateAnswer();
-        game.setAnswer(answer);
-        game.setStatusGame(false);
-
+        Game game = gameDao.createNewGame();
         gameDao.addGame(game);
         return game;
     }
@@ -53,6 +49,7 @@ public class GameServiceImpl implements GameService{
         return game;
     }
     
+    @Override
     public List<Game> getAllGames() {
         List<Game> allGames = gameDao.getAllGames();
         //Hide Answer for "In-Progress" games
