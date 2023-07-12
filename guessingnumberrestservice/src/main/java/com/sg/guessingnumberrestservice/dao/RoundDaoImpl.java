@@ -28,10 +28,8 @@ public class RoundDaoImpl implements RoundDao{
         jdbc.update(INSERT_ROUND, round.getGuess(), round.getResult(), round.getGameId());
         
         int newRoundId = jdbc.queryForObject("SELECT LAST_INSERT_ID();", Integer.class);
-        Round roundGet =getRoundById(newRoundId);
-        if(roundGet==null){
-            System.out.println("the round in dao is null");
-        }
+        Round roundGet = getRoundById(newRoundId);
+
         return roundGet;
     }
     

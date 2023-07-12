@@ -19,6 +19,11 @@ public class RoundServiceImpl implements RoundService{
     @Autowired
     private GameDao gameDao;
 
+    public RoundServiceImpl(RoundDao roundDao, GameDao gameDao) {
+        this.roundDao = roundDao;
+        this.gameDao = gameDao;
+    }
+
     @Override
     public Round Guess(Round round) {
         
