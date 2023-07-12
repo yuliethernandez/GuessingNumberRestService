@@ -11,13 +11,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GameServiceImpl implements GameService{
+    
     @Autowired
     GameDao gameDao;
-
-    @Override
-    public Game addGame(Game game) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
     @Override
     public String generateAnswer() {
@@ -34,7 +30,6 @@ public class GameServiceImpl implements GameService{
         }
 
         return numberGuess;
-
     }
 
     @Override

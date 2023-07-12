@@ -5,6 +5,7 @@ import com.sg.guessingnumberrestservice.dao.GameDao;
 import com.sg.guessingnumberrestservice.dao.RoundDao;
 import com.sg.guessingnumberrestservice.dto.Game;
 import com.sg.guessingnumberrestservice.dto.Round;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,20 +21,31 @@ public class RoundServiceImpl implements RoundService{
 
     @Override
     public Round Guess(Round round) {
-        Game game = gameDao.getGameById(round.getGameId());
-        String answer = game.getAnswer();
-        String guess = round.getGuess();
-        String result = checkResult(guess, answer);
-        round.setResult(result);
         
-        if (guess.equals(answer)) {
-            game.setStatusGame(true);
-            gameDao.updateGame(game);
-        }else{
-            game.setStatusGame(false);
-            gameDao.updateGame(game);
+        Round roundAdded = null;
+        Game game = gameDao.getGameById(round.getGameId());
+        
+        if(game.getStatusGame()==false){
+            String answer = game.getAnswer();
+            String guess = round.getGuess();
+
+            String result = checkResult(guess, answer);
+            round.setResult(result);
+
+            if (guess.equals(answer)) {
+                game.setStatusGame(true);
+                gameDao.updateGame(game);
+            }else{
+                game.setStatusGame(false);
+                gameDao.updateGame(game);
+            }
+            roundAdded = roundDao.addRound(round);
         }
-        Round roundAdded = roundDao.addRound(round);
+        if(roundAdded == null){
+            roundAdded = round;
+            roundAdded.setResult("The game with that ID is already finished");
+            roundAdded.setGuessTime(LocalDateTime.now());
+        }
         return roundAdded;
     }
 

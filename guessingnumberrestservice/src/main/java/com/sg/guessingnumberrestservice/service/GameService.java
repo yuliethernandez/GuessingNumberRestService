@@ -8,11 +8,9 @@ public interface GameService {
     
     String generateAnswer();
 
-    public Game addGame(Game game);
+    Game getGameById(int GameId);
 
-    public Game getGameById(int GameId);
+    Game startNewGame();
 
-    public Game startNewGame();
-
-    public List<Game> getAllGames();
+    List<Game> getAllGames();
 }
