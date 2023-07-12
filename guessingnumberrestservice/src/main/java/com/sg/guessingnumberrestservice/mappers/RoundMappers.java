@@ -16,7 +16,7 @@ public class RoundMappers implements RowMapper<Round>{
         Round round = new Round();
 
         round.setRoundId(rs.getInt("RoundId"));
-        round.setGuess(rs.getShort("guess"));
+        round.setGuess(rs.getString("guess"));
         round.setGuessTime(rs.getObject("guessTime", LocalDateTime.class));
         round.setResult(rs.getString("result"));
         round.setGameId(rs.getInt("GameId"));

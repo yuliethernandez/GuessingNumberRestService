@@ -22,7 +22,7 @@ public class GameController {
     @Autowired
     GameService gameService;
     
-    @PostMapping("/begin")
+    @PostMapping("begin")
     public ResponseEntity startNewGame(Model model) throws URISyntaxException {
 
         Game game = gameService.startNewGame();
