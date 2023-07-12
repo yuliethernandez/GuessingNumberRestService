@@ -36,7 +36,7 @@ public class RoundServiceImpl implements RoundService{
                 game.setStatusGame(true);
                 gameDao.updateGame(game);
             }else{
-                game.setStatusGame(false);
+                //game.setStatusGame(false);
                 gameDao.updateGame(game);
             }
             roundAdded = roundDao.addRound(round);
