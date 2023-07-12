@@ -5,8 +5,6 @@ import com.sg.guessingnumberrestservice.dto.Game;
 import java.util.List;
 
 public interface GameService {
-    
-    String generateAnswer();
 
     Game getGameById(int GameId);
 
