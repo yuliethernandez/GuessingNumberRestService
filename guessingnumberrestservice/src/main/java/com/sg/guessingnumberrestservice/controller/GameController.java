@@ -6,6 +6,8 @@ import com.sg.guessingnumberrestservice.service.GameService;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +26,20 @@ public class GameController {
     GameService gameService;
     
     @PostMapping("/begin")
-    public ResponseEntity startNewGame(Model model) throws URISyntaxException {
+    public ResponseEntity startNewGame(Model model){
 
         Game game = gameService.startNewGame();
         game.setAnswer("XXXX");
         model.addAttribute("Game", game);
         int gameId = game.getGameId();
-        URI uri = new URI("api/game/"+ gameId);
+        
+        URI uri;
+        try {
+            uri = new URI("api/game/"+ gameId);
+        } catch (URISyntaxException ex) {
+           return ResponseEntity.badRequest().build();
+        }
+        
         return ResponseEntity.created(uri).body(model);
     }
     

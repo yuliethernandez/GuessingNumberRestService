@@ -6,6 +6,7 @@ import com.sg.guessingnumberrestservice.dto.Round;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,13 +77,52 @@ public class RoundDaoImplTest {
     /**
      * Test of getAllRounds method, of class RoundDaoImpl.
      */
-    @Test
+   @Test
     public void testGetAllRounds() {
+        // Create two Game Objects with all the needed details
+        // to add them to the test database.
+        Game game1 = new Game();
+        game1.setAnswer("2014");
+        game1.setStatusGame(Boolean.TRUE);
+        game1 = gameDao.addGame(game1);
+
+        Game game2 = new Game();
+        game2.setAnswer("7045");
+        game2.setStatusGame(Boolean.TRUE);
+        game2 = gameDao.addGame(game2);
+
+
+        // Create two Round Objects with all the needed details
+        // to add them to the test database
+        Round round1 = new Round();
+        round1.setGameId(game1.getGameId());
+        round1.setGuess("3735");
+        round1.setResult("e:0:p:0");
+        round1 = roundDao.addRound(round1);
+
+        Round round2 = new Round();
+        round2.setGameId(game1.getGameId());
+        round2.setGuess("6821");
+        round2.setResult("e:0:p:0");
+        round2 = roundDao.addRound(round2);
+
+        // Get a list of round objects
+        List<Round> allRounds = roundDao.getAllRounds();
+
+
+        // Tests if we retrieved 2 game objects
+        Assertions.assertEquals(2, allRounds.size());
+        // Test if Round1 object is stored in our round list
+        Assertions.assertTrue(allRounds.contains(round1));
+        // Test if Round2 object is stored in our round list
+        Assertions.assertTrue(allRounds.contains(round2));
     }
 
     /**
      * Test of getRoundsByGameId method, of class RoundDaoImpl.
      */
+    
+    
     @Test
     @DisplayName("Test get rounds by GameId")
     public void testGetRoundsByGameId() {

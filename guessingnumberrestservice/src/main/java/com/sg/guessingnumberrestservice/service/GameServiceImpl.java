@@ -17,29 +17,8 @@ public class GameServiceImpl implements GameService{
     GameDao gameDao;
     
     @Override
-    public String generateAnswer() {
-
-        HashSet<Integer> answer = new HashSet<>();
-        Random numberGen = new Random();
-        for (int i = 0; answer.size() < 4; i++) {
-            answer.add(numberGen.nextInt(8) + 1);
-        }
-
-        String numberGuess = "";
-        for (int i : answer) {
-            numberGuess += i;
-        }
-
-        return numberGuess;
-    }
-
-    @Override
     public Game startNewGame() {
-        Game game = new Game();
-        String answer = generateAnswer();
-        game.setAnswer(answer);
-        game.setStatusGame(false);
-
+        Game game = gameDao.createNewGame();
         gameDao.addGame(game);
         return game;
     }
