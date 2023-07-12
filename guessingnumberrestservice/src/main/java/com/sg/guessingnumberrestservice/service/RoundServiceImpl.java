@@ -19,11 +19,6 @@ public class RoundServiceImpl implements RoundService{
     @Autowired
     private GameDao gameDao;
 
-    public RoundServiceImpl(RoundDao roundDao, GameDao gameDao) {
-        this.roundDao = roundDao;
-        this.gameDao = gameDao;
-    }
-
     @Override
     public Round Guess(Round round) {
         
@@ -41,7 +36,6 @@ public class RoundServiceImpl implements RoundService{
                 game.setStatusGame(true);
                 gameDao.updateGame(game);
             }else{
-                //game.setStatusGame(false);
                 gameDao.updateGame(game);
             }
             roundAdded = roundDao.addRound(round);

@@ -59,4 +59,9 @@ public class RoundDaoImpl implements RoundDao{
                 "SELECT * FROM round WHERE GameId = ?";
         return jdbc.query(FIND_ROUNDS_BY_GAME_ID, new RoundMapper(), id);
     }
+
+    @Override
+    public void deleteRoundById(int id) {
+        jdbc.update("DELETE FROM round WHERE RoundId = ?", id);
+    }
 }

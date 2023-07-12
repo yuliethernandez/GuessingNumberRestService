@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class GameDaoImpl implements GameDao{
@@ -87,6 +88,13 @@ public class GameDaoImpl implements GameDao{
     public void updateGame(Game game) {
         final String UPDATE_GAME = "UPDATE game SET statusGame = ? WHERE GameId = ?";
         jdbc.update(UPDATE_GAME, game.getStatusGame(), game.getGameId());
+    }
+
+    @Override
+    @Transactional
+    public void deleteGameById(int id) {
+        final String DELETE_GAME = "DELETE FROM game WHERE GameId = ?;";
+        jdbc.update(DELETE_GAME, id);
     }
 
 }

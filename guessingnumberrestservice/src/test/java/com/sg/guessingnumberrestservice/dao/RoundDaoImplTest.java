@@ -1,21 +1,25 @@
 
 package com.sg.guessingnumberrestservice.dao;
 
+import com.sg.guessingnumberrestservice.dto.Game;
 import com.sg.guessingnumberrestservice.dto.Round;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class RoundDaoImplTest {
+    
+    @Autowired
+    GameDao gameDao;
     
     @Autowired
     RoundDao roundDao;
@@ -33,6 +37,10 @@ public class RoundDaoImplTest {
     
     @BeforeEach
     public void setUp() {
+        List<Round> roundsToDelete = roundDao.getAllRounds();
+        for (Round r : roundsToDelete) {
+            roundDao.deleteRoundById(r.getRoundId());
+        }
 
     }
     
@@ -45,9 +53,17 @@ public class RoundDaoImplTest {
      */
     @Test
     public void testAddRound() {
+        // make a test game
+        Game testGame = new Game();
+        testGame.setGameId(1);
+        testGame.setAnswer("2514");
+        testGame.setStatusGame(false);
+        
+        gameDao.addGame(testGame);
+        
         Round roundTest = new Round();
-        roundTest.setGuess("4789");
-        roundTest.setResult("e:0:p:0");
+        roundTest.setGuess("5289");
+        roundTest.setResult("e:0:p:2");
         roundTest.setGameId(1);
         
         Round roundAdded = roundDao.addRound(roundTest);
@@ -68,7 +84,46 @@ public class RoundDaoImplTest {
      * Test of getRoundsByGameId method, of class RoundDaoImpl.
      */
     @Test
+    @DisplayName("Test get rounds by GameId")
     public void testGetRoundsByGameId() {
+        // set default values for a game and some guesses
+        int TEST_GAME_ID = 100;
+        String[] TEST_GUESSES = {"9876", "5432", "1098"};
+
+        // make a test game
+        Game testGame = new Game();
+        testGame.setGameId(TEST_GAME_ID);
+        testGame.setAnswer("0713");
+        testGame.setStatusGame(false);
+        
+        gameDao.addGame(testGame);
+
+        // make test rounds
+        Round firstRound = new Round();
+        firstRound.setGameId(TEST_GAME_ID);
+        firstRound.setGuess(TEST_GUESSES[0]);
+
+        Round secondRound = new Round();
+        secondRound.setGameId(TEST_GAME_ID);
+        secondRound.setGuess(TEST_GUESSES[1]);
+
+        Round thirdRound = new Round();
+        thirdRound.setGameId(TEST_GAME_ID);
+        thirdRound.setGuess(TEST_GUESSES[2]);
+
+        // insert the rounds into the DB
+        roundDao.addRound(firstRound);
+        roundDao.addRound(secondRound);
+        roundDao.addRound(thirdRound);
+
+        // did we get the right number of rounds?
+        List<Round> result = roundDao.getRoundsByGameId(TEST_GAME_ID);
+        assertEquals(3, result.size());
+
+        // are all the rounds retrieved the correct ones?
+        for (Round r : result) {
+            assertEquals(TEST_GAME_ID, r.getGameId());
+        }
     }
     
 }

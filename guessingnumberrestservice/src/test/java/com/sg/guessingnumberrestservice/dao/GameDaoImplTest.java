@@ -2,8 +2,11 @@
 package com.sg.guessingnumberrestservice.dao;
 
 import com.sg.guessingnumberrestservice.dto.Game;
+import com.sg.guessingnumberrestservice.dto.Round;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,12 +35,54 @@ public class GameDaoImplTest {
     
     @BeforeEach
     public void setUp() {
+        List<Round> roundsToDelete = roundDao.getAllRounds();
+        for (Round r : roundsToDelete) {
+            roundDao.deleteRoundById(r.getRoundId());
+        }
+        List<Game> games = gameDao.getAllGames();
+        for(Game game : games) {
+            gameDao.deleteGameById(game.getGameId());
+        }
     }
     
     @AfterEach
     public void tearDown() {
     }
 
+    /**
+     * Test of getAllGames method, of class GameDaoImpl.
+     */
+    @Test
+    public void testGetAllGames() {
+        // Create three Game Objects with all the needed details
+        // to add them to the database.
+        Game game1 = new Game();
+        game1.setAnswer("2014");
+        game1.setStatusGame(Boolean.TRUE);
+        game1 = gameDao.addGame(game1);
+
+        Game game2 = new Game();
+        game2.setAnswer("7045");
+        game2.setStatusGame(Boolean.TRUE);
+        game2 = gameDao.addGame(game2);
+
+        Game game3 = new Game();
+        game3.setAnswer("1264");
+        game3.setStatusGame(Boolean.TRUE);
+        game3 = gameDao.addGame(game3);
+
+        List<Game> allGames = gameDao.getAllGames();
+
+        // Tests if we retrieved 3 game objects
+        Assertions.assertEquals(3, allGames.size());
+        // Test if Game1 object is stored in our games list
+        Assertions.assertTrue(allGames.contains(game1));
+        // Test if Game2 object is stored in our games list
+        Assertions.assertTrue(allGames.contains(game2));
+        // Test if Game3 object is stored in our games list
+        Assertions.assertTrue(allGames.contains(game3));
+    }
+    
     @Test
     public void testCreateAddGame() {
         Game game = gameDao.createNewGame();
@@ -58,18 +103,6 @@ public class GameDaoImplTest {
         assertEquals(game, gameDao.getGameById(2));
     }
 
-    /**
-     * Test of getAllGames method, of class GameDaoImpl.
-     */
-    @Test
-    public void testGetAllGames() {
-    }
-
-    /**
-     * Test of updateGame method, of class GameDaoImpl.
-     */
-    @Test
-    public void testUpdateGame() {
-    }
+    
     
 }

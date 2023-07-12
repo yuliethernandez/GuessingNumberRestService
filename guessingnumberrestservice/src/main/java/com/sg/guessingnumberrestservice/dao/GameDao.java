@@ -15,5 +15,8 @@ public interface GameDao {
     
     Game addGame(Game game) ;
 
-    public void updateGame(Game game);
+    void updateGame(Game game);
+    
+    // This method to be inserted in GAMEDAO interface
+    void deleteGameById(int id);
 }
