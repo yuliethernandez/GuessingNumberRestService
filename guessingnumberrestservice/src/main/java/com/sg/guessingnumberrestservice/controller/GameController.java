@@ -42,9 +42,15 @@ public class GameController {
         }
         return ResponseEntity.ok(game);
     }
-    
+
+    /**
+     * "game"
+     * HTTPRequest: GET
+     * 'In-progress' games do not display their answer.
+     * @return a list of all the games
+     */
     @GetMapping("/game")
-    List<Game> getAllGames() {
+    public List<Game> getAllGames() {
         return gameService.getAllGames();
     }
 }

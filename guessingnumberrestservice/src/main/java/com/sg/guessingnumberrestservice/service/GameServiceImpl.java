@@ -3,6 +3,8 @@ package com.sg.guessingnumberrestservice.service;
 
 import com.sg.guessingnumberrestservice.dao.GameDao;
 import com.sg.guessingnumberrestservice.dto.Game;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -52,16 +54,28 @@ public class GameServiceImpl implements GameService{
 
         return game;
     }
-    
+
+    /**
+     * Get a list of all the games stored
+     * Hide answer for 'In-Progress' games
+     * @return list of all games
+     */
     public List<Game> getAllGames() {
+        // List to get all games
         List<Game> allGames = gameDao.getAllGames();
-        //Hide Answer for "In-Progress" games
+
+        // Hide Answer for "In-Progress" games
+        // Insert "XXXX"
+        // New Empty list to store hidden games
+        List<Game> gamesToBeHidden = new ArrayList<>();
+        // For-each: Iterate through all games stored
         for (Game game : allGames) {
             if (game.getStatusGame().equals(true)) {
-                game.setAnswer("****");
-            } else {
+                game.setAnswer("XXXX");
             }
+            gamesToBeHidden.add(game);
         }
-        return allGames;
+        //return list of games with hidden answers
+        return gamesToBeHidden;
     }
 }
