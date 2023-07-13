@@ -24,22 +24,33 @@ public class GameController {
     GameService gameService;
     
     @PostMapping("/begin")
-    public ResponseEntity startNewGame(Model model) throws URISyntaxException {
+    public ResponseEntity startNewGame(Model model){
 
         Game game = gameService.startNewGame();
+        
         game.setAnswer("XXXX");
         model.addAttribute("Game", game);
+        
         int gameId = game.getGameId();
-        URI uri = new URI("api/game/"+ gameId);
+        URI uri;
+        try {
+            uri = new URI("api/game/"+ gameId);
+        } catch (URISyntaxException ex) {
+           return ResponseEntity.badRequest().build();
+        }
+        
         return ResponseEntity.created(uri).body(model);
     }
     
     @GetMapping("/game/{GameId}")
     public ResponseEntity<Game> getGameById(@PathVariable int GameId) {
+        
         Game game = gameService.getGameById(GameId);
+        
         if (game == null) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
+        
         return ResponseEntity.ok(game);
     }
     

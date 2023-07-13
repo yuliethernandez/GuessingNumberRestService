@@ -25,7 +25,7 @@ public class RoundServiceImpl implements RoundService{
         Round roundAdded = null;
         Game game = gameDao.getGameById(round.getGameId());
         
-        if(game.getStatusGame()==false){
+        if(game.getStatusGame()== false){
             String answer = game.getAnswer();
             String guess = round.getGuess();
 

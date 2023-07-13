@@ -56,7 +56,7 @@ public class RoundDaoImpl implements RoundDao{
     @Override
     public List<Round> getRoundsByGameId(int id) {
         String FIND_ROUNDS_BY_GAME_ID =
-                "SELECT * FROM round WHERE GameId = ?";
+                "SELECT * FROM round WHERE GameId = ? ORDER BY guessTime";
         return jdbc.query(FIND_ROUNDS_BY_GAME_ID, new RoundMapper(), id);
     }
 

@@ -4,7 +4,7 @@ package com.sg.guessingnumberrestservice.dto;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-//@Entity
+
 public class Round {
     private int roundId;
     private String guess;

@@ -36,11 +36,11 @@ public class GameDaoImplTest {
     @BeforeEach
     public void setUp() {
         List<Round> roundsToDelete = roundDao.getAllRounds();
-        for (Round r : roundsToDelete) {
-            roundDao.deleteRoundById(r.getRoundId());
+        for (Round round: roundsToDelete) {
+            roundDao.deleteRoundById(round.getRoundId());
         }
         List<Game> games = gameDao.getAllGames();
-        for(Game game : games) {
+        for(Game game: games) {
             gameDao.deleteGameById(game.getGameId());
         }
     }
@@ -85,7 +85,12 @@ public class GameDaoImplTest {
     
     @Test
     public void testCreateAddGame() {
-        Game game = gameDao.createNewGame();
+        Game game = new Game();
+        game.setGameId(200);
+        game.setAnswer("2014");
+        game.setStatusGame(Boolean.TRUE);
+        game = gameDao.addGame(game);
+        
         Game added = gameDao.addGame(game);
         int gameId = added.getGameId();
 
@@ -101,8 +106,5 @@ public class GameDaoImplTest {
     public void testGetGameById() {
         Game game = gameDao.getGameById(2);
         assertEquals(game, gameDao.getGameById(2));
-    }
-
-    
-    
+    } 
 }
